@@ -29,6 +29,11 @@ public class ClienteService {
     public Cliente buscarporID(long id){
         return clienterepository.findById(id).get();
     }
+    
+    public Cliente actualizarCliente(Long id , Cliente cliente){
+        cliente.setIdUsuario(id.intValue());
+        return clienterepository.save(cliente);
+    }
 
     public String eliminarCliente(Long id){
         clienterepository.deleteById(id);

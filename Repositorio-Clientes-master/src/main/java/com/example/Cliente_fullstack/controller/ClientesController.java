@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Cliente_fullstack.Model.Cliente;
 import com.example.Cliente_fullstack.service.ClienteService;
 
-
 @RestController
 @RequestMapping("/api/v1/cliente")
 public class ClientesController {
@@ -51,23 +50,10 @@ public class ClientesController {
         }
 
         @PutMapping("/actualizar/{idUsuario}")
-        public ResponseEntity<Cliente> actualizar(@PathVariable Integer id, @RequestBody Cliente cliente) {
-            try {
-                Cliente cli = ClienteService.buscarporID(id);
-                cli.setNombre(cliente.getNombre());
-                cli.setApellido_paterno(cliente.getApellido_paterno());
-                cli.setApellido_materno(cliente.getApellido_materno());
-                cli.setCorreo(cliente.getCorreo());
-                cli.setFechaNacimiento(cliente.getFechaNacimiento());
-                cli.setTelefono(cliente.getTelefono());
-
-                ClienteService.agregarCliente(cli);
-                return ResponseEntity.ok(cliente);
-            } catch (Exception e) {
-                return ResponseEntity.notFound().build();
-            }
+        public Cliente actualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
+            return ClienteService.actualizarCliente(id, cliente);
         }
-        @DeleteMapping("/{id}") 
+        @DeleteMapping("/eliminar/{idUsuario}") 
         public ResponseEntity<?> eliminar(@PathVariable Long id) {
             try {
                 ClienteService.eliminarCliente(id);
